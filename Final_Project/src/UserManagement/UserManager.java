@@ -53,22 +53,21 @@ public class UserManager {
 			user.pw = temp;		
 	}
 	
-	public void signUp() {
-		System.out.print("user id: ");
-		String id = scan.next();
-		System.out.print("password: ");
-		String pw = scan.next();
+	public int signUp(String id, String pw) {
 		User user = find(id);
 		User newUser = new User();
 		if(user != null) {
-	    	System.out.println("동일한 아이디가 존재합니다.\\n");
+	    	System.out.println("동일한 아이디가 존재합니다.\n");
+	    	return 0;
 		}
-		else if(pw == null) {
+		else if(user == null) {
 			newUser.userId = id;
 			newUser.pw = pw;
 			Managers.managedList.userList.add(newUser);
 	        System.out.printf("환영합니다 %s님\n", id);
+	        return 1;
 		}
+		return 0;
 	}
 	
 	public User find(String kwd) {
