@@ -119,7 +119,7 @@ public class LoginFrame extends JFrame implements MyFrame {
 				String id = tId.getText();
 				String password = tPassword.getText();
 				User u1 = new User();
-				String result = u1.memberLogin(id, password);
+				String result = Managers.userManager.login(id, password);
 				if (result != null && !result.equals("song")) {
 					JOptionPane.showMessageDialog(null, "로그인 완료");
     				Managers.menuManger.changeMenuState("MAIN");
