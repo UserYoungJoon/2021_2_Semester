@@ -146,7 +146,8 @@ class JPanel022 extends JPanel implements ActionListener { // 2번째 패널
 					for (Item item : Managers.managedList.itemList) {
 						if (item.match(word)) {
 							String sample[] = { item.getType(), item.getCategories(), item.getName(),
-									item.getTime() + "", item.getRating() + "", item.getGrade()+"",item.getSummary() };
+									item.getTime() + "", item.getRating() + "", item.getGrade() + "",
+									item.getSummary() };
 							searchData.add(sample);
 							item.print();
 						}
@@ -303,17 +304,10 @@ class JPanel044 extends JPanel {// 리뷰 Panel
 	public JPanel044() {
 		JLabel label[] = new JLabel[10]; // Label 迭
 		JTextField textfield[] = new JTextField[5];
-		JTextArea textarea = new JTextArea();
-		JTextArea textarea1 = new JTextArea();
-		JScrollPane sp, tp;
-
 		JButton review;
 		Container contentPane;
 		JLabel imageLabel;
 		ImageIcon img0;
-
-		JPanel panel1, panel2;
-		JPanel panelll, pane121;
 
 		// GridLayout frameLayout = new GridLayout(6, 1); // ü ū Ʋ GridLayout
 		// frameLayout.setVgap(3); // GridLayout
@@ -321,8 +315,6 @@ class JPanel044 extends JPanel {// 리뷰 Panel
 
 		label[0] = new JLabel("영화 리뷰");
 		label[1] = new JLabel("영화 정보");
-		textarea = new JTextArea(1, 1);
-		textarea1 = new JTextArea(1, 1);
 
 		JButton bt_img1;
 		ImageIcon images = new ImageIcon("./images/Animation/겨울왕국.png");
@@ -334,41 +326,50 @@ class JPanel044 extends JPanel {// 리뷰 Panel
 		bt_img1.setLocation(30, 30);
 		add(bt_img1);
 
-		panel1 = new JPanel();
-		panel2 = new JPanel();
+		JButton b = new JButton("작품명");
+		b.setBorderPainted(false);
+		b.setContentAreaFilled(false);
+		b.setBorderPainted(false);
+		b.setOpaque(false);
+		b.setBounds(15, 300, 300, 100);
+		b.setForeground(Color.black);
+		b.setHorizontalAlignment(SwingConstants.LEFT);
+		b.setFont(new Font("고딕", Font.BOLD, 16));
+		
+		add(b);
 
-		BorderLayout layout1 = new BorderLayout();
-		BorderLayout layout2 = new BorderLayout();
+		JButton btt = new JButton("상영시기");
+		btt.setBorderPainted(false);
+		btt.setContentAreaFilled(false);
+		btt.setBorderPainted(false);
+		btt.setOpaque(false);
+		btt.setBounds(15, 350, 300, 100);
+		btt.setForeground(Color.black);
+		btt.setHorizontalAlignment(SwingConstants.LEFT);
+		btt.setFont(new Font("고딕", Font.BOLD, 16));
+		add(btt);
 
-		panel1.setLayout(layout1);
-		panel2.setLayout(layout2);
-
-		panel1.add("West", label[0]); // 영화리뷰
-		sp = new JScrollPane(textarea); // TextArea에 ScrollPane을 적용
-		sp.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-		sp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		sp.setLocation(250, 80);
-		sp.setSize(300, 420);
-		add(sp); // TextArea에 적용된 ScrollPane을 붙임
-
-		panel2.add("West", label[1]); // 영화설명
-		tp = new JScrollPane(textarea1); // TextArea에 ScrollPane을 적용
-		tp.setLocation(30, 350);
-		tp.setSize(200, 150);
-		add(tp); // TextArea에 적용된 ScrollPane을 붙임
+		JButton btlist = new JButton("리뷰 목록");
+		btlist.setBorderPainted(false);
+		btlist.setContentAreaFilled(false);
+		btlist.setBorderPainted(false);
+		btlist.setOpaque(false);
+		btlist.setBounds(400, 200, 200, 80);
+		btlist.setForeground(Color.black);
+		btlist.setHorizontalAlignment(SwingConstants.LEFT);
+		btlist.setFont(new Font("고딕", Font.BOLD, 18));
+		add(btlist);
 
 		review = new JButton("리뷰작성하기");
 		review.setSize(120, 40);
 		review.setLocation(450, 20);
 		review.addActionListener(new ActionListener() {
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				new ReviewAdd();
 			}
-		});
+			});
+		
 		add(review);
-
-		this.add(panel2);
 
 		setName("영화 상세 보기");
 		setSize(600, 600);
@@ -377,7 +378,6 @@ class JPanel044 extends JPanel {// 리뷰 Panel
 	}
 
 	public class ReviewAdd extends JFrame {
-
 		JLabel label[] = new JLabel[11]; // Label 배열로 선언
 		JTextField textfield[] = new JTextField[5]; // TextField 배열로 선언
 		JTextArea textarea = new JTextArea(); // TextArea 선언

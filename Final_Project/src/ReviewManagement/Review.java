@@ -27,4 +27,13 @@ public class Review{
 		}
 		return false;
 	}
+	
+	public boolean matchName(String kwd) {
+		if (this.itemName.equals(kwd)) {
+			return true;
+		}
+		else {
+			return false;	
+		}
+	}
 }

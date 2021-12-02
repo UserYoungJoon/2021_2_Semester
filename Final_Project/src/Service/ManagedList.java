@@ -10,6 +10,4 @@ public class ManagedList {
 	public static ArrayList<Item> itemList= new ArrayList<Item>();       
 	public static ArrayList<User> userList= new ArrayList<User>();       
 	public static ArrayList<Review> reviewList= new ArrayList<Review>(); 
-	
-	
 }

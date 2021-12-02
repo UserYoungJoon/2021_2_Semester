@@ -12,6 +12,8 @@ public abstract class Item {//Our Manageable
 	protected int time;
 	protected float grade;
 	protected int rating;//관람등급
+	protected float real_grade; //12/2 김정효
+	protected int grade_num; //12/2 김정효
 	protected ArrayList<Category> category = new ArrayList<Category>();
 	protected String imagePath;
 	protected String summary;
@@ -120,5 +122,11 @@ public abstract class Item {//Our Manageable
 		}		
 		return res; 
 	}
+	public void setGrade(float grade) { // 12/2 김정효
+		if(grade_num>=1) grade_num++;
+		else grade_num=1;
+		
+		if(grade_num == 1) real_grade = grade;
+		else real_grade = (real_grade*(grade_num-1) + grade)/grade_num;
+	}
 }
-
