@@ -11,7 +11,6 @@ public class ReviewManager {
 
 	public ReviewManager() {
 	}
-	private ArrayList<Review> reviewList;
 	private Scanner scan;
 		
 	public void init(Scanner scan) {
@@ -19,7 +18,7 @@ public class ReviewManager {
 	}
 	
 	public Review find(String id, String name) {
-		for (Review m: reviewList) {
+		for (Review m: Managers.managedList.reviewList) {
 			if(m.match(id, name))
 				return m;
 		}
@@ -46,7 +45,7 @@ public class ReviewManager {
 			newReview.itemName = name;
 			newReview.grade = grade;
 			newReview.content = review;
-	        reviewList.add(newReview);
+			Managers.managedList.reviewList.add(newReview);
 	        
 	        for(Item i1 : Managers.managedList.itemList) { // 12/2 김정효
 	        	if(i1.match(name)) {

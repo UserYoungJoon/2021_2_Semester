@@ -1,6 +1,7 @@
 package ProcessManagement;
 
 import FileSystem.FileManager;
+import ReviewManagement.ReviewManager;
 import Service.ServiceManager;
 import Service.SortingManager;
 import UserManagement.User;
@@ -18,5 +19,6 @@ public class Managers {
 	public static UserManager userManager = new UserManager();
 	public static SortingManager sortingManager = new SortingManager();
 	public static RecommendManager recommendManager = new RecommendManager();
+	public static ReviewManager reviewManager= new ReviewManager();
 	public static User nowUser = new User();
 }

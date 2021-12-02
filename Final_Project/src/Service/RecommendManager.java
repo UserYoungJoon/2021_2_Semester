@@ -7,12 +7,15 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.Random;
 
 public class RecommendManager {
 	final public static int RECOMMEND_ITEM_COUNT = 10;
-	ArrayList<Item> interestItems;
-	LinkedList<Item> recommendItems;
-	ArrayList<Item.Category> interestedCategory;
+	private ArrayList<Item> interestItems;
+	private LinkedList<Item> recommendItems;
+	private ArrayList<Item.Category> interestedCategory;
+	private boolean isRecorded = false;
+	private boolean provided = false;
 	
 	public RecommendManager() {
 		recommendItems = new LinkedList<Item>();
@@ -20,13 +23,21 @@ public class RecommendManager {
 		interestedCategory = new ArrayList<Item.Category>();
 	}
 
+	public void defaultRecommendSet() {
+		Random random = new Random();
+		int listSize = Managers.managedList.itemList.size();
+		for(int i=0;i<RECOMMEND_ITEM_COUNT;i++) {
+			recommendItems.add(Managers.managedList.itemList.get(random.nextInt(listSize)));
+		}
+	}
+	
 	public boolean existRecommendItem() {
-		if(interestItems.size()==0)
-			return false;
-		return true;
+		return isRecorded;
 	}
 	
 	public void addInterestItem(String name) {
+		isRecorded = true;
+		provided = false;
 		Item nowItem = findbyName(name);
 		for (Item item : interestItems) {
 			if (nowItem.equals(item)) {
@@ -50,20 +61,22 @@ public class RecommendManager {
 
 	}
 
+	public boolean isProvided() {
+		return provided;
+	}
+	
 	public List<Item> provideRecommendItems() {
 		updateRecommendItem();
+		provided = true;
 		return recommendItems;
-	}
-
-	public Item provideRecommendItem() {
-		updateRecommendItem();
-		if(recommendItems.size()==0)
-			return null;
-		return recommendItems.get(0);
 	}
 	
 	private void updateRecommendItem() {
+		if(!isRecorded) {
+			return;
+		}
 		boolean passFlag = false;
+		boolean flag =true;
 		for (Item.Category interestCategory : interestedCategory) {
 			for (Item toAddItem : Managers.managedList.itemList) {
 				for (Item oldItem : recommendItems) {
@@ -83,8 +96,14 @@ public class RecommendManager {
 						int removeIndex = 0;
 						Item toRemove = recommendItems.get(removeIndex);
 						for (int i = 1; i < RECOMMEND_ITEM_COUNT; i++) {
-							if (toRemove.getGrade() > recommendItems.get(i).getGrade()) {
-								removeIndex = i;
+							if(flag) {
+								if (toRemove.getGrade() >= recommendItems.get(i).getGrade()) {
+									removeIndex = i;
+									flag=false;
+								}
+							}
+							else {
+								flag=true;
 							}
 						}
 						recommendItems.remove(removeIndex);

@@ -1,11 +1,13 @@
-kim kkk
-choi ccc
-park ppp
-lee lll
-hong hhh
-woo www
-shin sss
-jeon jjj
-jeong jjj
-song sss
-1 1
+kim kkk 0
+choi ccc 0
+park ppp 0
+lee lll 0
+hong hhh 0
+woo www 0
+shin sss 0
+jeon jjj 0
+jeong jjj 0
+song sss 0
+1 1 귀멸의칼날,라디오스타
+2 2 0
+3 3 0

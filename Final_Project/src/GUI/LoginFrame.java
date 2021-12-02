@@ -25,6 +25,8 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import com.sun.tools.javac.Main;
+
+import Items.Item;
 import ProcessManagement.Managers;
 import UserManagement.User;
 import UserManagement.UserManager;
@@ -121,6 +123,14 @@ public class LoginFrame extends JFrame{
 				try {
 					if (Managers.nowUser != null && !Managers.nowUser.userId.equals("song")) {
 						JOptionPane.showMessageDialog(null, "로그인 완료");
+						if(Managers.nowUser.interestedItems.size()!=0) {
+							for(String itemName : Managers.nowUser.interestedItems) {
+								Managers.recommendManager.addInterestItem(itemName);
+							}
+						}
+						else {
+							Managers.recommendManager.defaultRecommendSet();
+						}
 						MainGUI mainGUI = new MainGUI();
 						dispose();
 					} else if (Managers.nowUser.userId.equals("song")) {
