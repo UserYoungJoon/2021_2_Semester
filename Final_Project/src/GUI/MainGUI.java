@@ -58,15 +58,10 @@ class JPanel011 extends JPanel { // 1번 패널
 		b.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Managers.recommendManager.addInterestItem(b.getLabel());
+				new ReviewFrame(buttonName);
 			}
 		});
 		return b;
-	}
-}
-
-class JPanel0111 extends JPanel {
-	public JPanel0111() {
-
 	}
 }
 
@@ -202,13 +197,14 @@ class JPanel022 extends JPanel implements ActionListener { // 2번째 패널
 
 class JPanel033 extends JPanel {
 	static List<Item> toShow;
+
 	public JPanel033() {
 		setLayout(null);
 		JButton bt_img;
 		toShow = Managers.recommendManager.provideRecommendItems();
 		Item nowItem = toShow.get(0);
 		nowArray++;
-		summay=nowItem.getSummary();
+		summay = nowItem.getSummary();
 		ImageIcon image = new ImageIcon(nowItem.getImagePath());
 		Image image2 = image.getImage();
 		Image i4 = image2.getScaledInstance(160, 250, java.awt.Image.SCALE_SMOOTH);
@@ -223,7 +219,7 @@ class JPanel033 extends JPanel {
 		b.setBackground(Color.gray);
 		add(b);
 
-		JButton btTitle = new JButton("Title: "+nowItem.getName()); // 제목 데이터 읽어오기
+		JButton btTitle = new JButton("Title: " + nowItem.getName()); // 제목 데이터 읽어오기
 		btTitle.setBorderPainted(false);
 		btTitle.setContentAreaFilled(false);
 		btTitle.setFocusPainted(false);
@@ -234,7 +230,7 @@ class JPanel033 extends JPanel {
 		btTitle.setFont(new Font("고딕", Font.BOLD, 18));
 		add(btTitle);
 
-		JButton btGrade = new JButton("Grade: "+nowItem.getGrade()); // 평점 데이터 읽어오기
+		JButton btGrade = new JButton("Grade: " + nowItem.getGrade()); // 평점 데이터 읽어오기
 		btGrade.setBorderPainted(false);
 		btGrade.setContentAreaFilled(false);
 		btGrade.setFocusPainted(false);
@@ -258,7 +254,9 @@ class JPanel033 extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (e.getActionCommand().equals("줄거리")) {
-					JOptionPane.showMessageDialog(null,summay,"About 줄거리", JOptionPane.INFORMATION_MESSAGE); // 줄거리 데이터 읽어오기
+					JOptionPane.showMessageDialog(null, summay, "About 줄거리", JOptionPane.INFORMATION_MESSAGE); // 줄거리
+																												// 데이터
+																												// 읽어오기
 				}
 			}
 		};
@@ -266,40 +264,41 @@ class JPanel033 extends JPanel {
 		bt1.setBackground(Color.WHITE);
 		bt1.setBounds(450, 300, 100, 30);
 		add(bt1);
-		
+
 		btNext.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//새로운 추천 컨텐츠로 버튼 내용물 바꾸기
+				// 새로운 추천 컨텐츠로 버튼 내용물 바꾸기
 				toShow = Managers.recommendManager.provideRecommendItems();
 				Item item = toShow.get(nowArray++);
 				ImageIcon image = new ImageIcon(item.getImagePath());
 				Image image2 = image.getImage();
 				Image i4 = image2.getScaledInstance(320, 500, java.awt.Image.SCALE_SMOOTH);
 				ImageIcon i5 = new ImageIcon(i4);
-				b.setIcon(i5);			
-				btTitle.setText("Title: "+item.getName());
-				btGrade.setText("Grade: "+item.getGrade());
+				b.setIcon(i5);
+				btTitle.setText("Title: " + item.getName());
+				btGrade.setText("Grade: " + item.getGrade());
 				summay = item.getSummary();
-				if(nowArray==10)
-					nowArray=0;
+				if (nowArray == 10)
+					nowArray = 0;
 			}
 		});
 	}
+
 	static int nowArray = 0;
 	static String summay;
 }
 
-class JPanel044 extends JPanel {// 리뷰 Panel
+class ReviewFrame extends JFrame {// 리뷰 Panel
 	DefaultTableModel model;
-	static Item nowItem=null;
-	public JPanel044() {
-		for(Item item : Managers.managedList.itemList) {
-			if(item.getName().equals("겨울왕국")) {
+	static Item nowItem = null;
+
+	public ReviewFrame(String itemName) {
+		for (Item item : Managers.managedList.itemList) {
+			if (item.getName().equals(itemName)) {
 				nowItem = item;
 				break;
 			}
 		}
-		
 		JLabel label[] = new JLabel[10]; // Label 迭
 		JTextField textfield[] = new JTextField[5];
 		JButton review;
@@ -315,7 +314,7 @@ class JPanel044 extends JPanel {// 리뷰 Panel
 		label[1] = new JLabel("영화 정보");
 
 		JButton bt_img1;
-		ImageIcon images = new ImageIcon("./images/Animation/겨울왕국.png");
+		ImageIcon images = new ImageIcon(nowItem.getImagePath());
 		Image im = images.getImage(); // 뽑아온 이미지 객체 사이즈를 새롭게 만들기!
 		Image im2 = im.getScaledInstance(200, 300, Image.SCALE_SMOOTH); // 새로 조절된 사이즈의 이미지(im2)를
 		ImageIcon icon2 = new ImageIcon(im2);
@@ -324,7 +323,7 @@ class JPanel044 extends JPanel {// 리뷰 Panel
 		bt_img1.setLocation(30, 30);
 		add(bt_img1);
 
-		JButton b = new JButton("작품명");
+		JButton b = new JButton(nowItem.getName());
 		b.setBorderPainted(false);
 		b.setContentAreaFilled(false);
 		b.setBorderPainted(false);
@@ -336,7 +335,7 @@ class JPanel044 extends JPanel {// 리뷰 Panel
 
 		add(b);
 
-		JButton btt = new JButton("상영시기");
+		JButton btt = new JButton(nowItem.getTime() + "");
 		btt.setBorderPainted(false);
 		btt.setContentAreaFilled(false);
 		btt.setBorderPainted(false);
@@ -346,23 +345,22 @@ class JPanel044 extends JPanel {// 리뷰 Panel
 		btt.setHorizontalAlignment(SwingConstants.LEFT);
 		btt.setFont(new Font("고딕", Font.BOLD, 16));
 		add(btt);
-		
-		JButton bttt = new JButton("평점");
-		btt.setBorderPainted(false);
-		btt.setContentAreaFilled(false);
-		btt.setBorderPainted(false);
-		btt.setOpaque(false);
-		btt.setBounds(15, 400, 300, 100);
-		btt.setForeground(Color.black);
-		btt.setHorizontalAlignment(SwingConstants.LEFT);
-		btt.setFont(new Font("고딕", Font.BOLD, 16));
+
+		JButton bttt = new JButton(nowItem.getGrade() + "");
+		bttt.setBorderPainted(false);
+		bttt.setContentAreaFilled(false);
+		bttt.setBorderPainted(false);
+		bttt.setOpaque(false);
+		bttt.setBounds(15, 400, 300, 100);
+		bttt.setForeground(Color.black);
+		bttt.setHorizontalAlignment(SwingConstants.LEFT);
+		bttt.setFont(new Font("고딕", Font.BOLD, 16));
 		add(bttt);
 
-		
 		ArrayList<String[]> revs = new ArrayList<String[]>();
-		for(Review rev : Managers.reviewManager.findByName(nowItem.getName())) {
-			String[] sample = {rev.userId,rev.grade+"",rev.content};
-			revs.add(sample);	
+		for (Review rev : Managers.reviewManager.findByName(nowItem.getName())) {
+			String[] sample = { rev.userId, rev.grade + "", rev.content };
+			revs.add(sample);
 		}
 		String header[] = { "이름", "평점", "내용" };
 		String contents[][] = new String[revs.size()][];
@@ -372,7 +370,7 @@ class JPanel044 extends JPanel {// 리뷰 Panel
 		}
 
 		model = new DefaultTableModel(contents, header);
-		
+
 		JTable table = new JTable(model);
 		table.getColumn("이름").setPreferredWidth(2);
 		table.getColumn("평점").setPreferredWidth(2);
@@ -388,17 +386,18 @@ class JPanel044 extends JPanel {// 리뷰 Panel
 		review.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new ReviewAdd();
+				bttt.setText(nowItem.getGrade() + "");
 			}
 		});
 
 		add(review);
 
 		setName("영화 상세 보기");
-		setSize(600, 600);
+		setSize(900, 650);
 		setLocation(400, 200);
 		setVisible(true);
 	}
-	
+
 	void tableModelUpdate(DefaultTableModel model) {
 		int rowCnt = model.getRowCount();
 		for (int i = 0; i < rowCnt; i++) {
@@ -406,9 +405,9 @@ class JPanel044 extends JPanel {// 리뷰 Panel
 		}
 
 		ArrayList<String[]> revs = new ArrayList<String[]>();
-		for(Review rev : Managers.reviewManager.findByName(nowItem.getName())) {
-			String[] sample = {rev.userId,rev.grade+"",rev.content};
-			revs.add(sample);	
+		for (Review rev : Managers.reviewManager.findByName(nowItem.getName())) {
+			String[] sample = { rev.userId, rev.grade + "", rev.content };
+			revs.add(sample);
 		}
 		String header[] = { "이름", "평점", "내용" };
 		String contents[][] = new String[revs.size()][];
@@ -451,15 +450,13 @@ class JPanel044 extends JPanel {// 리뷰 Panel
 			good = new JRadioButton("★★★☆☆");
 			verygood = new JRadioButton("★★★★☆");
 			perfect = new JRadioButton("★★★★★");
-			
+
 			bg = new ButtonGroup();
 			bg.add(bad);
 			bg.add(soso);
 			bg.add(good);
 			bg.add(verygood);
 			bg.add(perfect);
-
-
 
 			trans = new JButton("전송");
 			cancel = new JButton("취소");
@@ -491,7 +488,6 @@ class JPanel044 extends JPanel {// 리뷰 Panel
 			panel31.add(perfect);
 			panel3.add("West", panel31); // BorderLayout의 왼쪽
 
-
 			panel42.add(label[7]); // *필수입력
 			panel4.add("West", panel41); // BorderLayout의 왼쪽
 			panel4.add("East", panel42); // BorderLayout의 오른쪽
@@ -513,21 +509,22 @@ class JPanel044 extends JPanel {// 리뷰 Panel
 			setTitle("리뷰작성");
 			setSize(600, 350);
 			setVisible(true);
-			
+
 			trans.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					float selectedGrade=0;
-					if(bad.isSelected())
-						selectedGrade=1;
-					else if(soso.isSelected())
-						selectedGrade=2;
-					else if(good.isSelected())
-						selectedGrade=3;
-					else if(verygood.isSelected())
-						selectedGrade=4;
-					else if(perfect.isSelected())
-						selectedGrade=5;					
-					Managers.reviewManager.writeRev(Managers.nowUser.userId, nowItem.getName(),selectedGrade, textarea.getText());
+					float selectedGrade = 0;
+					if (bad.isSelected())
+						selectedGrade = 1;
+					else if (soso.isSelected())
+						selectedGrade = 2;
+					else if (good.isSelected())
+						selectedGrade = 3;
+					else if (verygood.isSelected())
+						selectedGrade = 4;
+					else if (perfect.isSelected())
+						selectedGrade = 5;
+					Managers.reviewManager.writeRev(Managers.nowUser.userId, nowItem.getName(), selectedGrade,
+							textarea.getText());
 					tableModelUpdate(model);
 					dispose();
 				}
@@ -537,7 +534,7 @@ class JPanel044 extends JPanel {// 리뷰 Panel
 					dispose();
 				}
 			});
-			
+
 		}
 	}
 }
@@ -546,7 +543,6 @@ public class MainGUI extends JFrame {
 	public JPanel011 jpanel01 = null;
 	public JPanel022 jpanel02 = null;
 	public JPanel033 jpanel03 = null;
-	public JPanel044 jpanel04 = null;
 	final static int GUI_WIDTH = 900;
 	final static int GUI_HEIGHT = 650;
 
@@ -560,20 +556,17 @@ public class MainGUI extends JFrame {
 		jpanel01 = new JPanel011();
 		jpanel02 = new JPanel022();
 		jpanel03 = new JPanel033();
-		jpanel04 = new JPanel044();
 
 		jpanel03.setBackground(Color.darkGray);
 		jpanel01.setBackground(Color.darkGray);
 		JTabbedPane jtab = new JTabbedPane(); // JTabbedPane 객체 생성
 		jtab.setTabPlacement(JTabbedPane.TOP);
-		JScrollPane scroll = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_NEVER,
-				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		JScrollPane scroll = new JScrollPane();
 		scroll.setViewportView(jpanel01);
 		jtab.add("Contents", scroll);
 
 		jtab.addTab("Search/Sorting", jpanel02);
 		jtab.addTab("Recommend", jpanel03);
-		jtab.addTab("Review", jpanel04);
 
 		Dimension dim = new Dimension(430, 400);
 		setResizable(false);

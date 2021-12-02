@@ -54,6 +54,14 @@ public class ServiceManager {
 			Managers.managedList.reviewList.add(review);
 		}
 	}
+	
+	public Item findByName(String kwd) {
+		for(Item item : Managers.managedList.itemList) {
+			if(item.equals(kwd))
+				return item;
+		}
+		return null;
+	}
 }
 
 
