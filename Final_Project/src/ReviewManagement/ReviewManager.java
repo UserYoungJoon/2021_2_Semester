@@ -19,8 +19,10 @@ public class ReviewManager {
 	
 	public Review find(String id, String name) {
 		for (Review m: Managers.managedList.reviewList) {
-			if(m.match(id, name))
-				return m;
+			if(m.itemName.equals(name)) {
+				if(m.match(id, name))
+					return m;
+			}	
 		}
 		return null;
 	}

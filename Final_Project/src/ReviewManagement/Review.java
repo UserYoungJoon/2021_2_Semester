@@ -20,10 +20,8 @@ public class Review{
 	}
 	
 	public boolean match(String id, String name) {
-		if (userId.equals(id)) {
-			if(name.equals(name)) {
+		if (userId.equals(id) && name.equals(name)) {
 				return true;
-			}
 		}
 		return false;
 	}
