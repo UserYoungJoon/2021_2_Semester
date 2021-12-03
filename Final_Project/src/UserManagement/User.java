@@ -14,7 +14,8 @@ public class User {
 	public void read(Scanner scan) {
 		userId = scan.next();
 		pw = scan.next();
-		String[] items = scan.next().split(",");
+		String tmp = scan.next();
+		String[] items = tmp.split(",");
 		if (items[0].equals("0")) {
 			return;
 		}
